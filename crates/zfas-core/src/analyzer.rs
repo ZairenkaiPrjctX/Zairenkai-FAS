@@ -85,6 +85,8 @@ pub struct QualityCounters {
     pub out_of_order: u64,
     pub clock_mismatch: u64,
     pub gaps: u64,
+    /// Recorded intervals over the deadline at the time they arrived.
+    pub missed: u64,
 }
 
 #[derive(Debug, Clone)]
@@ -197,6 +199,7 @@ impl FrameAnalyzer {
 
     fn record(&mut self, interval: u64) {
         let missed = interval > self.deadline_ns();
+        self.quality.missed += missed as u64;
         if self.intervals.len() == self.cfg.window_frames {
             self.intervals.pop_front();
         }

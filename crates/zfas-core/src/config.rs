@@ -33,11 +33,21 @@ pub enum Mode {
     Control,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum Scope {
+    /// Every foreground app except those with `enabled = false`.
+    All,
+    /// Only apps listed under `[apps]` (with `enabled` not false).
+    Listed,
+}
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(default, deny_unknown_fields)]
 pub struct General {
     pub enabled: bool,
     pub mode: Mode,
+    pub scope: Scope,
     /// Default profile. ADAPTIVE is available but not the default until it is validated on
     /// hardware (see docs/TESTING.md).
     pub profile: ProfileName,
@@ -50,6 +60,7 @@ impl Default for General {
         Self {
             enabled: true,
             mode: Mode::Control,
+            scope: Scope::All,
             profile: ProfileName::Balanced,
             tick_ms: 500,
         }
@@ -340,7 +351,11 @@ impl Config {
         let o = package.and_then(|p| self.apps.get(p));
         let profile = o.and_then(|o| o.profile).unwrap_or(self.general.profile);
         AppSettings {
-            enabled: self.general.enabled && o.and_then(|o| o.enabled).unwrap_or(true),
+            enabled: self.general.enabled
+                && match self.general.scope {
+                    Scope::All => o.and_then(|o| o.enabled).unwrap_or(true),
+                    Scope::Listed => o.is_some_and(|o| o.enabled.unwrap_or(true)),
+                },
             profile,
             params: self.profile_params(profile),
             target_fps: o.map(|o| o.target_fps.clone()).unwrap_or_default(),
@@ -491,5 +506,9 @@ mod tests {
         assert_eq!(g.target_fps, vec![60, 120]);
         assert!(!c.for_app(Some("com.example.reader")).enabled);
         assert_eq!(c.for_app(None).profile, ProfileName::Balanced);
+        assert!(c.for_app(Some("com.unlisted")).enabled);
+        let (c, _) = parse("[general]\nscope = \"listed\"\n[apps.\"com.example.game\"]\n").unwrap();
+        assert!(c.for_app(Some("com.example.game")).enabled);
+        assert!(!c.for_app(Some("com.unlisted")).enabled);
     }
 }
