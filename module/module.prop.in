@@ -1,0 +1,6 @@
+id=zairenkai_fas
+name=Zairenkai-FAS
+version=v@VERSION@
+versionCode=@VERSION_CODE@
+author=ZairenkaiPrjctX
+description=Frame-aware scheduling: bounded, thermal-aware CPU frequency floors driven by SurfaceFlinger frame telemetry. Restores original settings on stop.

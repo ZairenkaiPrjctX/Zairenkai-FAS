@@ -1,0 +1,13 @@
+[package]
+name = "zfas-platform"
+description = "Zairenkai-FAS platform adapters (sysfs, dumpsys, tracefs)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+zfas-core = { path = "../zfas-core" }
+serde.workspace = true
+serde_json.workspace = true
+libc.workspace = true

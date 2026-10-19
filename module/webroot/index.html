@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zairenkai-FAS</title>
+<style>
+  :root { --bg: #f6f7f9; --fg: #16181d; --muted: #5b6270; --card: #fff; --line: #dde1e7; --accent: #2457c5; --warn: #a15c00; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #111317; --fg: #e8eaee; --muted: #9aa2b1; --card: #1a1d23; --line: #2b3039; --accent: #7aa2ff; --warn: #f0b45b; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 16px; font: 15px/1.45 system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+  h1 { font-size: 20px; margin: 0 0 12px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 0; }
+  dt { color: var(--muted); }
+  dd { margin: 0; word-break: break-word; }
+  button, select { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--fg); }
+  button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .note { color: var(--muted); font-size: 13px; }
+  .warn { color: var(--warn); }
+  pre { white-space: pre-wrap; font-size: 12px; margin: 0; }
+</style>
+</head>
+<body>
+<h1>Zairenkai-FAS</h1>
+
+<div class="card">
+  <dl id="status"><dt>Status</dt><dd>loading…</dd></dl>
+</div>
+
+<div class="card">
+  <div class="row">
+    <label for="profile">Profile</label>
+    <select id="profile">
+      <option value="power_saver">Power saver</option>
+      <option value="balanced">Balanced</option>
+      <option value="performance">Performance</option>
+      <option value="fast_response">Fast response</option>
+      <option value="adaptive">Adaptive (experimental)</option>
+    </select>
+    <button class="primary" id="apply">Apply</button>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <button id="enable">Enable</button>
+    <button id="disable">Disable</button>
+    <button id="reset">Release boosts</button>
+    <button id="refresh">Refresh</button>
+  </div>
+  <p class="note">Values shown are read from the daemon. Frame rates come from SurfaceFlinger
+  (measured); bottleneck and CPCS weights are estimates. Levels are fractions of each CPU
+  cluster's range, never above its current maximum.</p>
+  <p class="note" id="msg"></p>
+</div>
+
+<div class="card"><pre id="errors"></pre></div>
+
+<script>
+"use strict";
+// Only these fixed commands are ever executed; the profile comes from the fixed list above.
+const BIN = "/data/adb/modules/zairenkai_fas/bin/zfasd";
+const PROFILES = ["power_saver", "balanced", "performance", "fast_response", "adaptive"];
+const COMMANDS = { status: "status", enable: "enable", disable: "disable", reset: "reset" };
+
+let seq = 0;
+function run(args) {
+  return new Promise((resolve) => {
+    if (typeof ksu === "undefined" || !ksu.exec) {
+      resolve({ errno: -1, stdout: "", stderr: "KernelSU WebUI API not available" });
+      return;
+    }
+    const cb = "zfas_cb_" + (seq++);
+    window[cb] = (errno, stdout, stderr) => { delete window[cb]; resolve({ errno, stdout, stderr }); };
+    ksu.exec(BIN + " ctl " + args, "{}", cb);
+  });
+}
+
+function text(v) { return v === null || v === undefined ? "–" : String(v); }
+
+function row(dl, k, v, cls) {
+  const dt = document.createElement("dt"); dt.textContent = k;
+  const dd = document.createElement("dd"); dd.textContent = text(v);
+  if (cls) dd.className = cls;
+  dl.append(dt, dd);
+}
+
+async function refresh() {
+  const r = await run(COMMANDS.status);
+  const dl = document.getElementById("status");
+  dl.replaceChildren();
+  if (r.errno !== 0) {
+    row(dl, "Daemon", "not reachable: " + (r.stderr || r.stdout), "warn");
+    return;
+  }
+  let s;
+  try { s = JSON.parse(r.stdout); } catch (e) { row(dl, "Daemon", "unreadable status", "warn"); return; }
+  const st = s.step || {};
+  const d = st.decision || {};
+  const w = st.stats || {};
+  row(dl, "Mode", s.observe_only ? "observe only (no writes)" : "control");
+  row(dl, "App", s.package);
+  row(dl, "App control", s.app_enabled ? "on" : "off");
+  row(dl, "Profile", s.profile);
+  row(dl, "State", d.state);
+  row(dl, "Reason", d.reason);
+  row(dl, "Target FPS", st.target_fps);
+  row(dl, "FPS (measured)", w.fps ? w.fps.toFixed(1) : null);
+  row(dl, "P95 frame", w.p95_ns ? (w.p95_ns / 1e6).toFixed(1) + " ms" : null);
+  row(dl, "Missed", w.miss_ratio !== undefined ? (w.miss_ratio * 100).toFixed(1) + " %" : null);
+  row(dl, "Bottleneck (est.)", d.bottleneck);
+  row(dl, "Thermal", st.thermal ? st.thermal.reason + " (cap " + st.thermal.level_cap + ")" : null);
+  row(dl, "Levels", (s.domains || []).map((x) => x.id.replace("cpufreq/", "") + "=" + x.level).join("  "));
+  row(dl, "Telemetry", s.telemetry_error || (s.layer ? "SurfaceFlinger: " + s.layer : null), s.telemetry_error ? "warn" : "");
+  document.getElementById("profile").value = PROFILES.includes(s.profile) ? s.profile : "balanced";
+  document.getElementById("errors").textContent = (s.errors || []).join("\n");
+}
+
+async function act(args) {
+  const r = await run(args);
+  document.getElementById("msg").textContent = r.errno === 0 ? "Done." : "Failed: " + (r.stdout || r.stderr);
+  refresh();
+}
+
+document.getElementById("apply").onclick = () => {
+  const p = document.getElementById("profile").value;
+  if (PROFILES.includes(p)) act("profile " + p);
+};
+document.getElementById("enable").onclick = () => act(COMMANDS.enable);
+document.getElementById("disable").onclick = () => act(COMMANDS.disable);
+document.getElementById("reset").onclick = () => act(COMMANDS.reset);
+document.getElementById("refresh").onclick = refresh;
+refresh();
+setInterval(refresh, 3000);
+</script>
+</body>
+</html>
