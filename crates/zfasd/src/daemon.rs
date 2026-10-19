@@ -116,6 +116,10 @@ struct Snapshot<'a> {
     observe_only: bool,
     package: Option<&'a str>,
     layer: Option<&'a str>,
+    /// `general.enabled` (master switch).
+    enabled: bool,
+    /// `general.profile` (default profile; `profile` is the one applied to the current app).
+    default_profile: &'a str,
     app_enabled: bool,
     profile: &'a str,
     telemetry_error: Option<&'a str>,
@@ -167,6 +171,8 @@ impl Runtime<'_> {
             observe_only: self.observe_only,
             package: self.observer.package.as_deref(),
             layer: self.observer.layer(),
+            enabled: self.cfg.general.enabled,
+            default_profile: self.cfg.general.profile.as_str(),
             app_enabled: app.enabled,
             profile: app.profile.as_str(),
             telemetry_error: self.observer.last_telemetry_error.as_deref(),
@@ -501,6 +507,8 @@ mod tests {
         let state: serde_json::Value = serde_json::from_str(&d.read("data/state.json")).unwrap();
         assert_eq!(state["running"], false);
         assert_eq!(state["package"], "com.example.game");
+        assert_eq!(state["enabled"], true);
+        assert_eq!(state["default_profile"], "balanced");
         // dumpsys SurfaceFlinger is not available: no telemetry, so no boost was applied.
         assert_eq!(state["step"]["decision"]["state"], "telemetry_unavailable");
         assert!(state["telemetry_error"]
