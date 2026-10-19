@@ -85,6 +85,25 @@ pub fn parse_line(line: &str) -> Option<SchedEvent> {
     })
 }
 
+/// Remove a leftover instance from a crashed run (events off, tracing off, directory removed).
+/// Returns `true` if an instance was found.
+pub fn cleanup_instance(root: &SysRoot) -> bool {
+    let mut found = false;
+    for base in TRACEFS_CANDIDATES {
+        let dir = format!("{base}/instances/{INSTANCE}");
+        if !root.exists(&dir) {
+            continue;
+        }
+        found = true;
+        let _ = root.write_existing(format!("{dir}/tracing_on"), "0");
+        for e in ["sched_switch", "sched_waking", "sched_wakeup"] {
+            let _ = root.write_existing(format!("{dir}/events/sched/{e}/enable"), "0");
+        }
+        let _ = fs::remove_dir(root.path(&dir));
+    }
+    found
+}
+
 #[derive(Debug)]
 pub struct TraceSession {
     root: SysRoot,

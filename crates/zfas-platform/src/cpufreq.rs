@@ -46,6 +46,9 @@ impl Policy {
     }
 }
 
+/// Highest CPU id accepted from sysfs; anything above is treated as corrupt input.
+const MAX_CPU_ID: u32 = 1023;
+
 fn parse_cpus(s: &str) -> Vec<u32> {
     // `affected_cpus` is space separated; `related_cpus` may use ranges ("0-3").
     let mut v = Vec::new();
@@ -55,10 +58,12 @@ fn parse_cpus(s: &str) -> Vec<u32> {
     {
         if let Some((a, b)) = tok.split_once('-') {
             if let (Ok(a), Ok(b)) = (a.parse::<u32>(), b.parse::<u32>()) {
-                v.extend(a..=b.min(a + 1024));
+                v.extend(a..=b.min(MAX_CPU_ID));
             }
-        } else if let Ok(c) = tok.parse() {
-            v.push(c);
+        } else if let Ok(c) = tok.parse::<u32>() {
+            if c <= MAX_CPU_ID {
+                v.push(c);
+            }
         }
     }
     v
@@ -520,6 +525,14 @@ pub(crate) mod tests {
         std::fs::remove_file(d.path().join(P4_MIN)).unwrap();
         assert!(b.set_level(1, 5).is_err());
         assert!(!d.path().join(P4_MIN).exists());
+    }
+
+    #[test]
+    fn cpu_lists_are_bounded() {
+        assert_eq!(parse_cpus("0-3"), vec![0, 1, 2, 3]);
+        assert_eq!(parse_cpus("4 5,6"), vec![4, 5, 6]);
+        assert!(parse_cpus("4000000000").is_empty());
+        assert_eq!(parse_cpus("1022-4000000000"), vec![1022, 1023]);
     }
 
     #[test]

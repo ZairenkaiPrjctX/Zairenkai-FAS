@@ -8,21 +8,29 @@ put detail in `AGENT/`.
 
 ## Current state (read first)
 
-As of 2026-10-18 this repository contained **no source code** (GitHub API 2026-10-18: repository size 0, no branches, no commits; ls-remote returned no refs.).
-Until that changes:
+This repository is **Zairenkai-FAS**: a Rust workspace (`crates/zfas-core`, `crates/zfas-platform`,
+`crates/zfasd`) plus a Magisk/KernelSU module (`module/`). Architecture: `docs/ARCHITECTURE.md`.
+Nothing has been validated on a physical device yet (`docs/TESTING.md`).
 
-- Do not describe an architecture, language, or toolchain as fact. Record discoveries in
-  `AGENT/PROJECT_CONTEXT.md` with evidence (file paths, manifests, command output).
-- When the first real code lands, update this file's **Commands** table and
-  `AGENT/ARCHITECTURE.md` in the same pull request.
+Non-negotiables in this repo:
+- Only cpufreq `scaling_min_freq` floors are written, within `[cpuinfo_min, current scaling_max]`.
+  Never write `scaling_max_freq`, governors, thermal nodes, or guessed vendor paths.
+- Every write path must keep restore-before-write, read-back, lease expiry, and restore on exit.
+- Thermal SEVERE and above means no boost. Keep that enforced in config validation.
+- Tests use `SysRoot` fixtures and `FakeRunner`. They must never touch the host's `/sys` or `/proc`.
+- Do not copy code from GPL references (encore_fas, fas-rs, fas-rs-cpcs); see `docs/THIRD_PARTY.md`.
+- No FPS or battery claim without the measurement procedure in `docs/TESTING.md`.
 
 ## Commands
 
 | Purpose | Command | Status |
 |---|---|---|
-| Build | — | Not Configured |
-| Test | — | Not Configured |
-| Lint / format | — | Not Configured |
+| Build | `cargo build --workspace` | Verified. Evidence: 2026-10-19 |
+| Test | `cargo test --workspace` | Verified. Evidence: 82 passed, 2026-10-19 |
+| Lint / format | `cargo clippy --workspace --all-targets -- -D warnings && cargo fmt --all --check` | Verified. Evidence: clean, 2026-10-19 |
+| MSRV | `cargo +1.85.0 test --workspace` | Verified. Evidence: passed, 2026-10-19 |
+| Shell lint | `shellcheck -s sh module/*.sh module/META-INF/com/google/android/update-binary && shellcheck scripts/*.sh` | Verified. Evidence: clean (0.10.0), 2026-10-19 |
+| Android module | `ANDROID_NDK_HOME=<ndk> scripts/build-android.sh` | Verified. Evidence: NDK r27d, 2026-10-19 |
 | Validate agent foundation | `python3 <path-to-.github>/agent-foundation/scripts/validate_agent_setup.py .` | Configured |
 
 Only list commands that exist in this repository. Never invent one.

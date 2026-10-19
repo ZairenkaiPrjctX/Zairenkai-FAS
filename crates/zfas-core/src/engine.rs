@@ -133,7 +133,8 @@ impl Engine {
         self.leases.restore(backend).map_err(|e| e.to_string())
     }
 
-    /// Replace the configuration (reload). Thermal and lease state carry over.
+    /// Replace the configuration (reload). Boosts are released and the engine restarts with the
+    /// new settings; only the session diagnostics carry over.
     pub fn set_config(
         &mut self,
         cfg: Config,

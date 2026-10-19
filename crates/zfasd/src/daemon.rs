@@ -81,6 +81,9 @@ pub fn save_config(path: &Path, cfg: &Config) -> Result<(), String> {
 
 /// Crash recovery: put back values a previous run could not restore.
 pub fn restore_leftovers(root: &SysRoot, paths: &Paths) -> Result<(), String> {
+    if zfas_platform::tracefs::cleanup_instance(root) {
+        log!("INFO", "removed leftover tracefs instance");
+    }
     match cpufreq::restore_from_file(root, &paths.restore()) {
         Ok(p) if p.is_empty() => Ok(()),
         Ok(p) => Err(p.join("; ")),
