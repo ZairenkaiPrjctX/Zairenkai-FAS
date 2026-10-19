@@ -32,7 +32,7 @@
 |---|---|---|
 | Test | `cargo test --workspace` | Verified. Evidence: 82 tests passed (51 + 23 + 8), 2026-10-19 |
 | Lint | `cargo clippy --workspace --all-targets -- -D warnings`, `cargo fmt --all --check` | Verified. Evidence: clean 2026-10-19 |
-| Android build | `ANDROID_NDK_HOME=... scripts/build-android.sh` | Verified. Evidence: NDK r27d, aarch64 PIE for `/system/bin/linker64`, zip in `dist/`, 2026-10-19 |
+| Android build | `ANDROID_NDK_HOME=... scripts/build-android.sh`, `.cargo/config.toml` | Verified. Evidence: NDK r27d, aarch64 PIE for `/system/bin/linker64`, 16 KB-aligned LOAD segments (checked by the script), zip in `dist/`, 2026-10-19 |
 | On-device run | `zfasd run` via `service.sh` | **Unverified**: never executed on an Android device |
 
 ## Key facts and limitations
