@@ -31,7 +31,8 @@ Replies are `{"ok":true,"message":...}` or `{"ok":false,"error":...}`. From a sh
 |---|---|---|
 | `running`, `pid`, `updated_mono_ms` | liveness (compare with `CLOCK_MONOTONIC`) | – |
 | `mode`, `observe_only` | whether writes happen | – |
-| `package`, `layer`, `app_enabled`, `profile` | foreground app and settings | measured |
+| `enabled`, `default_profile` | `general.enabled` and `general.profile` from the configuration | configured |
+| `package`, `layer`, `app_enabled`, `profile` | foreground app and its effective settings (`profile` may differ from `default_profile` through a per-app override) | measured |
 | `step.stats.fps`, `p50_ns`, `p95_ns`, `p99_ns`, `miss_ratio`, `samples`, `confidence` | frame statistics | measured (SurfaceFlinger) |
 | `step.target_fps` | selected target | derived |
 | `step.decision.state`, `reason`, `cpu_level`, `bottleneck` | controller output; the bottleneck is an estimate | estimated |
