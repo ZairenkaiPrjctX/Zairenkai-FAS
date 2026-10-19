@@ -58,6 +58,7 @@ pub struct ThermalInput {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[serde(default, deny_unknown_fields)]
 pub struct ThermalPolicy {
     /// Highest boost level allowed per status (index = status code). Levels above the
     /// profile's own maximum are ignored.

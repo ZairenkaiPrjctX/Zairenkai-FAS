@@ -13,6 +13,7 @@ use crate::model::{FrameEvent, Timestamp};
 
 /// Analyzer tuning. All durations in nanoseconds.
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[serde(default, deny_unknown_fields)]
 pub struct AnalyzerConfig {
     /// Frames kept for percentile statistics.
     pub window_frames: usize,
