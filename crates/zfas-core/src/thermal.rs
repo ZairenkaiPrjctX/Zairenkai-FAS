@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Thermal-aware limits.
 //!
 //! The primary input is Android's thermal status (Thermal HAL / `ThermalService`), whose

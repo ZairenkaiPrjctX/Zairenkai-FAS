@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Local control socket.
 //!
 //! A Unix stream socket, mode 0600, accepting one request line and answering one JSON line.

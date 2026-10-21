@@ -12,7 +12,7 @@
 | Visibility | private | Verified. Evidence: GitHub API |
 | Default branch | `dev` | Verified. Evidence: `git remote show origin` 2026-10-19 |
 | Purpose | Frame-aware scheduling: bounded, thermal-aware CPU frequency floors driven by SurfaceFlinger frame telemetry | Verified. Evidence: `crates/`, `docs/ARCHITECTURE.md` |
-| Licence | none chosen yet (no `LICENSE` file) | Verified. Evidence: repository tree; `docs/THIRD_PARTY.md` |
+| Licence | Apache-2.0 (`LICENSE`, `NOTICE`, Cargo `license`, SPDX headers) | Verified. Evidence: maintainer decision 2026-10-21; `cargo metadata` reports Apache-2.0 for all crates; `docs/THIRD_PARTY.md` |
 
 ## Contents
 
@@ -66,6 +66,5 @@
 
 ## Open questions
 
-- Which licence should the project use? It must be chosen before distribution.
 - Which devices will be used for the validation procedure in `docs/TESTING.md`?
 - Should the GitHub description be changed from "kernel module" to match the daemon design?

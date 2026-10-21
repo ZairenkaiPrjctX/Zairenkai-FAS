@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Zairenkai-FAS core logic.
 //!
 //! This crate performs no I/O. Every input (frames, hardware evidence, thermal status,

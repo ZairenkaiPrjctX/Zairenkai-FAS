@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Control abstraction: backends, time-bounded leases and conflict resolution.
 //!
 //! Nothing writes hardware directly from a decision. A decision becomes a *lease* (owner,

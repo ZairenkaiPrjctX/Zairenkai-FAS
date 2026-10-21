@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Session traces: record live observations, replay them through the engine offline, and
 //! generate clearly labelled synthetic traces for tests and benchmarks.
 //!

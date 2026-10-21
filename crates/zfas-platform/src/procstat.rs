@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Per-thread CPU busy fraction from `/proc/<pid>/task/<tid>/stat`.
 //!
 //! The `comm` field can contain spaces and parentheses, so fields are counted from the last

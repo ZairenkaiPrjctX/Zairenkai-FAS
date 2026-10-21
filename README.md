@@ -82,4 +82,4 @@ zfasd check-config FILE
 
 ## Licence
 
-Not chosen yet; see `docs/THIRD_PARTY.md`.
+Apache-2.0 (`LICENSE`, `NOTICE`). Dependencies and the references studied: `docs/THIRD_PARTY.md`.

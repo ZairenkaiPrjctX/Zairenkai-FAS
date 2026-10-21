@@ -2,9 +2,39 @@
 
 ## Project licence
 
-The owner has **not chosen a licence** for Zairenkai-FAS yet. The repository has no `LICENSE`
-file, so all rights are reserved by the copyright holder until one is added. Choose a licence
-before distributing the module. Every licence in the tables below allows that.
+**Apache-2.0** (maintainer decision, 2026-10-21; as for Zairenkai-Core and -ThermalTools):
+`LICENSE` (the official text), `NOTICE`, SPDX headers in every Rust, shell and HTML file, and
+`license = "Apache-2.0"` in Cargo. The copyright line follows the organization convention,
+"Copyright 2026 ZairenkaiPrjctX contributors". The module zip contains `LICENSE`, `NOTICE` and
+this file.
+
+The decision followed a provenance audit (Zairenkai-App `docs/integration/fas-provenance.md`,
+re-run 2026-10-21): no run of 3 or more lines matches fas-rs `09ba876`, fas-rs-cpcs `aa3583a` or
+encore_fas `f408a00`, the single matching lines are boilerplate, and every dependency below is
+permissive. Every licence in the tables below is compatible with Apache-2.0.
+
+### Authorship
+
+Checked in `git log`, 2026-10-21:
+- **Non-merge commits** (9 up to `9d87236`, and every later one): all were made by Claude Code sessions (author "Claude
+  <noreply@anthropic.com>") run by the maintainer, GitHub `FebriCahyaa`. Every one except the
+  first agent-foundation commit carries the maintainer's `Signed-off-by`.
+- **Merges (2):** the maintainer's merges of PR #1 and PR #2.
+- **Other contributors:** none.
+
+Anthropic's terms assign to the user whatever rights Anthropic has in Outputs:
+- Consumer Terms, effective 2025-10-08, §4: "we assign to you all of our right, title, and
+  interest—if any—in Outputs", subject to compliance with the terms.
+- Commercial Terms, effective 2025-06-17, §B: the customer "owns its Outputs".
+
+The copyright line "ZairenkaiPrjctX contributors" refers to the contributors in the history. It
+names no legal entity and claims no exclusive ownership.
+
+**Not settled:** whether, and to what extent, copyright subsists in AI-assisted code depends on
+the jurisdiction and on the human contribution. Apache-2.0 is granted to the extent the
+contributors hold rights. The provenance audit is evidence, not proof, of independent authorship:
+it compared lines with three projects, so paraphrase or other sources cannot be ruled out. This
+record is not legal advice.
 
 ## Rust dependencies compiled into `zfasd`
 

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Builds one [`StepInput`] per tick from the live platform.
 
 use zfas_core::cpcs::SchedEvent;

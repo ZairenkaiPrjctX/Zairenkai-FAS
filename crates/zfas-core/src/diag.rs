@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Session diagnostics: what the controller did and on what evidence, without app data.
 
 use std::collections::BTreeMap;

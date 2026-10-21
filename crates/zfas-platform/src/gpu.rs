@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! GPU busy evidence (read-only). Only the Qualcomm kgsl node is supported; other vendors'
 //! nodes are not guessed.
 

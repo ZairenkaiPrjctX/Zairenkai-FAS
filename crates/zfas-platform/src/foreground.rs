@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Foreground app detection from `dumpsys activity activities`, and pid lookup via `/proc`.
 
 use std::time::Duration;

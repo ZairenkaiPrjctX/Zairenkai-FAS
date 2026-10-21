@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Internal telemetry event model.
 //!
 //! Every timestamp carries its clock domain. Durations are only computed between timestamps

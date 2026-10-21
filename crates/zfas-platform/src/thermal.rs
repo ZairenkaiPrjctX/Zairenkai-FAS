@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Thermal inputs: Android thermal status via `dumpsys thermalservice`, and raw thermal
 //! zones from sysfs (used only with configured thresholds).
 

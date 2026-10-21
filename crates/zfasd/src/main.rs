@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! `zfasd`: Zairenkai-FAS daemon and command-line tool.
 
 mod bench;

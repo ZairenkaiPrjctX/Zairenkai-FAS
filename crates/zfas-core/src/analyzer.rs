@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Deterministic frame analyzer.
 //!
 //! Turns a stream of [`FrameEvent`]s (possibly duplicated, out of order, or with gaps) into
