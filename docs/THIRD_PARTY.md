@@ -16,7 +16,7 @@ permissive. Every licence in the tables below is compatible with Apache-2.0.
 ### Authorship
 
 Checked in `git log`, 2026-10-21:
-- **Non-merge commits (9):** all were made by Claude Code sessions (author "Claude
+- **Non-merge commits** (9 up to `9d87236`, and every later one): all were made by Claude Code sessions (author "Claude
   <noreply@anthropic.com>") run by the maintainer, GitHub `FebriCahyaa`. Every one except the
   first agent-foundation commit carries the maintainer's `Signed-off-by`.
 - **Merges (2):** the maintainer's merges of PR #1 and PR #2.
