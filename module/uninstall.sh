@@ -1,4 +1,6 @@
 #!/system/bin/sh
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 ZairenkaiPrjctX contributors
 # Stop the daemon, restore original settings, remove module data.
 MODDIR=${0%/*}
 DATA=/data/adb/zairenkai-fas

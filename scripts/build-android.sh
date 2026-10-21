@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 ZairenkaiPrjctX contributors
 # Build zfasd for Android arm64 and package the Magisk/KernelSU module zip.
 #
 # Requires: Rust with the aarch64-linux-android target, and ANDROID_NDK_HOME pointing at an
@@ -29,7 +31,7 @@ rm -f "$STAGE/module.prop.in"
 sed -e "s/@VERSION@/$VERSION/" -e "s/@VERSION_CODE@/$VERSION_CODE/" module/module.prop.in >"$STAGE/module.prop"
 mkdir -p "$STAGE/bin"
 cp target/aarch64-linux-android/release/zfasd "$STAGE/bin/zfasd"
-cp LICENSE "$STAGE/LICENSE" 2>/dev/null || true
+cp LICENSE NOTICE "$STAGE/" # required: the zip must carry its licence
 cp docs/THIRD_PARTY.md "$STAGE/THIRD_PARTY.md"
 chmod 0755 "$STAGE"/*.sh "$STAGE/bin/zfasd" "$STAGE/META-INF/com/google/android/update-binary"
 

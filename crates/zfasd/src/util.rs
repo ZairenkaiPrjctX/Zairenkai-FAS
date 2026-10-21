@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Clock, logging and signal plumbing.
 
 use std::sync::atomic::{AtomicBool, Ordering};

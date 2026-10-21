@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Running platform commands (`dumpsys`) with a timeout and an output cap.
 //!
 //! Commands are always an explicit argv; nothing is ever passed through a shell, and no

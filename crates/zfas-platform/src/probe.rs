@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Capability probe: what this device supports, with evidence, before anything is enabled.
 
 use std::ffi::CString;

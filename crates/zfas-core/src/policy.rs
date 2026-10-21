@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Performance profiles.
 //!
 //! A profile never contains absolute frequencies. It works in *boost levels* 0..=10, where a

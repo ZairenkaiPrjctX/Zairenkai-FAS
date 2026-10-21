@@ -1,4 +1,6 @@
 #!/system/bin/sh
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 ZairenkaiPrjctX contributors
 # Install-time checks for Magisk/KernelSU. Sourced by the installer ($MODPATH, ui_print,
 # abort and set_perm are provided by it).
 

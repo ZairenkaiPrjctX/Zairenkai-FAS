@@ -2,9 +2,16 @@
 
 ## Project licence
 
-The owner has **not chosen a licence** for Zairenkai-FAS yet. The repository has no `LICENSE`
-file, so all rights are reserved by the copyright holder until one is added. Choose a licence
-before distributing the module. Every licence in the tables below allows that.
+**Apache-2.0** (maintainer decision, 2026-10-21; as for Zairenkai-Core and -ThermalTools):
+`LICENSE` (the official text), `NOTICE`, SPDX headers in every Rust, shell and HTML file, and
+`license = "Apache-2.0"` in Cargo. The copyright line follows the organization convention,
+"Copyright 2026 ZairenkaiPrjctX contributors". The module zip contains `LICENSE`, `NOTICE` and
+this file.
+
+The decision followed a provenance audit (Zairenkai-App `docs/integration/fas-provenance.md`,
+re-run 2026-10-21): no run of 3 or more lines matches fas-rs `09ba876`, fas-rs-cpcs `aa3583a` or
+encore_fas `f408a00`, the single matching lines are boilerplate, and every dependency below is
+permissive. Every licence in the tables below is compatible with Apache-2.0.
 
 ## Rust dependencies compiled into `zfasd`
 

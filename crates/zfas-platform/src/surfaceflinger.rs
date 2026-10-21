@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Frame telemetry from `dumpsys SurfaceFlinger --latency <layer>`.
 //!
 //! Output format (AOSP `SurfaceFlinger::dumpStatsLocked` / `FrameTracker`): the first line is

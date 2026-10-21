@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! cpufreq discovery and the CPU floor control backend.
 //!
 //! Only the standard Linux cpufreq sysfs ABI is used (`/sys/devices/system/cpu/cpufreq/

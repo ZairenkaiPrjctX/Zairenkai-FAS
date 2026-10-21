@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Engine overhead benchmark on synthetic input. Measures this host's CPU time per engine
 //! step; it says nothing about FPS or power on a device.
 

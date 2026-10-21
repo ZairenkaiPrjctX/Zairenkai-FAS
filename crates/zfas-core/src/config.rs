@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Versioned configuration.
 //!
 //! The user file holds only what the user changed; everything else comes from compiled

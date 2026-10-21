@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Zairenkai-FAS platform adapters.
 //!
 //! Each module wraps one Android or Linux interface, parses it defensively, and reports

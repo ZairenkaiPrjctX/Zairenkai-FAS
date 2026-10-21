@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Scheduler events from tracefs for the experimental CPCS analyzer.
 //!
 //! A private tracefs *instance* (`instances/zairenkai_fas`) is used so the global trace buffer,

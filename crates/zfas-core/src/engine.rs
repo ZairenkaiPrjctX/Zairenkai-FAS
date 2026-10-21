@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! The FAS engine: one deterministic step from observations to applied control.
 //!
 //! The daemon and the replay tool both drive this type, so a recorded session replays through

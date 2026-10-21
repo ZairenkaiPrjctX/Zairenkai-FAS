@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! CPCS (critical-path cluster scaling): **experimental**.
 //!
 //! Idea (after the public CPCS write-up; this is an independent implementation): a frame's

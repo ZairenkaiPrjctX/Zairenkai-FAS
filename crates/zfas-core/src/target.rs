@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright 2026 ZairenkaiPrjctX contributors
 //! Target frame-rate selection.
 //!
 //! The target is the lowest candidate rate the app is plausibly trying to reach, chosen from
