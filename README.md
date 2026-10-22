@@ -27,17 +27,17 @@ everything back.
 ## Quick start
 
 ```sh
-# Build (host tests, then the Android module)
+# Build (host tests, then the Android component)
 cargo test --workspace
 ANDROID_NDK_HOME=/path/to/android-ndk-r27d scripts/build-android.sh
 
-# Install dist/zairenkai-fas-v*.zip in your root manager and reboot. Then:
-su -c /data/adb/modules/zairenkai_fas/bin/zfasd probe        # capabilities, read-only
-su -c /data/adb/modules/zairenkai_fas/bin/zfasd ctl status   # live state
+# Install the zairenkai module (Zairenkai-Modules) in your root manager and reboot. Then:
+su -c /data/adb/modules/zairenkai/bin/zfasd probe        # capabilities, read-only
+su -c /data/adb/modules/zairenkai/bin/zfasd ctl status   # live state
 ```
 
 Observe mode makes decisions without writing anything. Put this in
-`/data/adb/zairenkai-fas/config.toml`:
+`/data/adb/zairenkai/fas/config.toml`:
 
 ```toml
 [general]

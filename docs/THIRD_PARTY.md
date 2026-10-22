@@ -5,8 +5,8 @@
 **Apache-2.0** (maintainer decision, 2026-10-21; as for Zairenkai-Core and -ThermalTools):
 `LICENSE` (the official text), `NOTICE`, SPDX headers in every Rust, shell and HTML file, and
 `license = "Apache-2.0"` in Cargo. The copyright line follows the organization convention,
-"Copyright 2026 ZairenkaiPrjctX contributors". The module zip contains `LICENSE`, `NOTICE` and
-this file.
+"Copyright 2026 ZairenkaiPrjctX contributors". The component (`dist/zairenkai-fas/`)
+carries `LICENSE`, `NOTICE` and this file into the `zairenkai` module zip.
 
 The decision followed a provenance audit (Zairenkai-App `docs/integration/fas-provenance.md`,
 re-run 2026-10-21): no run of 3 or more lines matches fas-rs `09ba876`, fas-rs-cpcs `aa3583a` or
@@ -89,6 +89,6 @@ Where Zairenkai-FAS deliberately differs from the references:
 
 ## Magisk installer interface
 
-`module/META-INF/com/google/android/update-binary` is an independently written, minimal
+The `update-binary` stub, now in Zairenkai-Modules, is an independently written, minimal
 script. It calls Magisk's documented module installer interface (`util_functions.sh`,
 `install_module`) and contains no Magisk code.

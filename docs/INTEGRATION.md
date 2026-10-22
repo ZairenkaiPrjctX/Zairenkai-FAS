@@ -6,7 +6,7 @@ never runs arbitrary commands and never writes cpufreq nodes.
 
 ## Control socket
 
-`/data/adb/zairenkai-fas/zfasd.sock` is a Unix stream socket, mode 0600. Peers must run as
+`/data/adb/zairenkai/fas/zfasd.sock` is a Unix stream socket, mode 0600. Peers must run as
 root or as the daemon's uid; this is checked with `SO_PEERCRED`.
 
 Send one request line per connection and read one JSON line back.
@@ -24,7 +24,7 @@ Replies are `{"ok":true,"message":...}` or `{"ok":false,"error":...}`. From a sh
 
 ## State file
 
-`/data/adb/zairenkai-fas/state.json` is rewritten atomically every 2 s, and once more with
+`/data/adb/zairenkai/fas/state.json` is rewritten atomically every 2 s, and once more with
 `"running": false` at exit. Schema version 1. Main fields:
 
 | Field | Meaning | Provenance |

@@ -6,8 +6,8 @@ The full description is in `docs/ARCHITECTURE.md`. This page is a summary for ag
 
 ## Overview
 
-`zfasd` (`crates/zfasd/src/main.rs`) is a root daemon packaged as a Magisk/KernelSU module
-(`module/`). Each tick (default 500 ms):
+`zfasd` (`crates/zfasd/src/main.rs`) is a root daemon packaged in the single `zairenkai` root
+module assembled by Zairenkai-Modules. Each tick (default 500 ms):
 1. It reads SurfaceFlinger frame timestamps, per-thread CPU busy, kgsl GPU busy, cpufreq
    capping and the Android thermal status.
 2. `zfas_core::engine::Engine::step` turns these into a bounded boost level.
@@ -33,7 +33,7 @@ The full description is in `docs/ARCHITECTURE.md`. This page is a summary for ag
 ## Entry points
 
 - `zfasd run|probe|restore|ctl|record|replay|synth|bench|check-config|default-config`
-- `module/service.sh` (boot), `module/customize.sh` (install), `module/uninstall.sh`
+- The module's boot, install and uninstall scripts live in Zairenkai-Modules.
 
 ## Trust boundaries
 
@@ -43,5 +43,5 @@ use. No shell execution. Details: `docs/ARCHITECTURE.md#trust-boundaries`.
 
 ## Generated artifacts
 
-`dist/` (module zip) from `scripts/build-android.sh`. `module.prop` is generated from
-`module/module.prop.in` and the workspace version; edit the template.
+`dist/zairenkai-fas/` from `scripts/build-android.sh`: `bin/zfasd`, `LICENSE`, `NOTICE`,
+`THIRD_PARTY.md` and `component.json` (version, commit, SHA-256 of each file).

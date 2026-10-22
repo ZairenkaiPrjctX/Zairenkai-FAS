@@ -22,7 +22,7 @@
 | Core logic, no I/O | `crates/zfas-core` (analyzer, controller, policy, thermal, target, control leases, CPCS, config, diag, engine) | Verified. Evidence: 51 tests pass |
 | Platform adapters | `crates/zfas-platform` (cpufreq, SurfaceFlinger, foreground, procstat, thermal, gpu, tracefs, probe, exec, fsutil, sysroot) | Verified. Evidence: 23 fixture tests pass |
 | Daemon / CLI | `crates/zfasd` (run, probe, restore, ctl, record, replay, synth, bench, check-config) | Verified. Evidence: 8 tests incl. end-to-end daemon test |
-| Module packaging | `module/` (customize, service, uninstall, action, update-binary, WebUI) | Verified. Evidence: shellcheck clean; `scripts/build-android.sh` produced a zip 2026-10-19 |
+| Android component | `scripts/build-android.sh` | Emits `dist/zairenkai-fas/` (`bin/zfasd`, licences, `component.json`); the module scripts and WebUI moved to Zairenkai-Modules, which packages the single `zairenkai` module (maintainer decision 2026-10-22). **Unverified** with the NDK since this change |
 | CI | `.github/workflows/ci.yml` | Verified locally. Evidence: actionlint clean 2026-10-19. **Unverified** on GitHub (not run yet) |
 | Docs | `README.md`, `docs/*.md` | Verified. Evidence: files present |
 
