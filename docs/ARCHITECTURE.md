@@ -12,7 +12,7 @@ time-limited, and the daemon restores the original values when it stops or fails
 | `crates/zfas-core` | Telemetry model, frame analyzer, target-FPS selection, profiles, thermal governor, controller state machine, control leases, CPCS analyzer, config, diagnostics, and the `Engine` that ties them together | none (pure, deterministic) |
 | `crates/zfas-platform` | Adapters for SurfaceFlinger, `dumpsys activity`, cpufreq sysfs, thermal service and zones, `/proc` stats, kgsl, tracefs; capability probe; atomic writes; timed command runner | all through `SysRoot` (test root) and `Runner` (fake commands) |
 | `crates/zfasd` | Daemon loop, watchdog, control socket, state file, CLI (probe/restore/ctl/record/replay/synth/bench) | real device |
-| `module/` | Magisk/KernelSU module scripts and KernelSU WebUI | device |
+| `scripts/build-android.sh` | Android arm64 component (`dist/zairenkai-fas/`) for the `zairenkai` module in Zairenkai-Modules | build |
 
 ## One tick (default 500 ms)
 
@@ -108,11 +108,11 @@ blocks further steps for `max_boost_ms`.
 
 | Path (device) | Content | Writer |
 |---|---|---|
-| `/data/adb/zairenkai-fas/config.toml` | user config (versioned, partial) | user, `zfasd ctl` (atomic) |
-| `/data/adb/zairenkai-fas/restore.json` | original node values while a floor is held | `CpufreqBackend` (atomic, 0600) |
-| `/data/adb/zairenkai-fas/state.json` | status snapshot, refreshed every 2 s | daemon (atomic) |
-| `/data/adb/zairenkai-fas/zfasd.sock` | control socket (0600, SO_PEERCRED root or same uid) | daemon |
-| `/data/adb/zairenkai-fas/zfasd.log` | log, rotated at 512 KiB | `service.sh` |
+| `/data/adb/zairenkai/fas/config.toml` | user config (versioned, partial) | user, `zfasd ctl` (atomic) |
+| `/data/adb/zairenkai/fas/restore.json` | original node values while a floor is held | `CpufreqBackend` (atomic, 0600) |
+| `/data/adb/zairenkai/fas/state.json` | status snapshot, refreshed every 2 s | daemon (atomic) |
+| `/data/adb/zairenkai/fas/zfasd.sock` | control socket (0600, SO_PEERCRED root or same uid) | daemon |
+| `/data/adb/zairenkai/fas/zfasd.log` | log, rotated at 512 KiB | `service.sh` |
 
 ## Trust boundaries
 

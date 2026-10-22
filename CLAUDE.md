@@ -9,7 +9,9 @@ put detail in `AGENT/`.
 ## Current state (read first)
 
 This repository is **Zairenkai-FAS**: a Rust workspace (`crates/zfas-core`, `crates/zfas-platform`,
-`crates/zfasd`) plus a Magisk/KernelSU module (`module/`). Architecture: `docs/ARCHITECTURE.md`.
+`crates/zfasd`). `scripts/build-android.sh` builds `zfasd` as a component (`dist/zairenkai-fas/`);
+the single `zairenkai` root module that packages it is assembled in Zairenkai-Modules.
+Architecture: `docs/ARCHITECTURE.md`.
 Nothing has been validated on a physical device yet (`docs/TESTING.md`).
 
 Non-negotiables in this repo:
@@ -29,8 +31,8 @@ Non-negotiables in this repo:
 | Test | `cargo test --workspace` | Verified. Evidence: 82 passed, 2026-10-19 |
 | Lint / format | `cargo clippy --workspace --all-targets -- -D warnings && cargo fmt --all --check` | Verified. Evidence: clean, 2026-10-19 |
 | MSRV | `cargo +1.85.0 test --workspace` | Verified. Evidence: passed, 2026-10-19 |
-| Shell lint | `shellcheck -s sh module/*.sh module/META-INF/com/google/android/update-binary && shellcheck scripts/*.sh` | Verified. Evidence: clean (0.10.0), 2026-10-19 |
-| Android module | `ANDROID_NDK_HOME=<ndk> scripts/build-android.sh` | Verified. Evidence: NDK r27d, 2026-10-19 |
+| Shell lint | `shellcheck scripts/*.sh` | Verified. Evidence: clean, 2026-10-22 |
+| Android component | `ANDROID_NDK_HOME=<ndk> scripts/build-android.sh` | Unverified since it emits `dist/zairenkai-fas/` instead of a zip (2026-10-22): no NDK on the local aarch64 host, CI is the reference |
 | Validate agent foundation | `python3 <path-to-.github>/agent-foundation/scripts/validate_agent_setup.py .` | Configured |
 
 Only list commands that exist in this repository. Never invent one.

@@ -1,6 +1,6 @@
 # Configuration reference
 
-File: `/data/adb/zairenkai-fas/config.toml`. When it is missing, the built-in defaults apply
+File: `/data/adb/zairenkai/fas/config.toml`. When it is missing, the built-in defaults apply
 (`zfasd default-config` prints them).
 
 - **Partial files are fine.** Write only the keys you change; everything else comes from the

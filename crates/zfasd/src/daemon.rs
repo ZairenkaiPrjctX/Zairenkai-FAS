@@ -30,7 +30,7 @@ use crate::observer::Observer;
 use crate::socket::{Request, Server};
 use crate::util::{install_signal_handlers, monotonic_ms, RELOAD, STOP};
 
-pub const DEFAULT_DIR: &str = "/data/adb/zairenkai-fas";
+pub const DEFAULT_DIR: &str = "/data/adb/zairenkai/fas";
 
 #[derive(Debug, Clone)]
 pub struct Paths {
