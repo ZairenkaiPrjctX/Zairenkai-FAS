@@ -1,8 +1,10 @@
 # Integration contract (UI and other components)
 
-No Zairenkai app exists yet (on 2026-10-19 `Zairenkai-App` branch `dev` contained only the agent foundation files). Any UI, whether the
-bundled KernelSU WebUI or a future app, integrates only through the interfaces below. The UI
-never runs arbitrary commands and never writes cpufreq nodes.
+Zairenkai-App (Android) is the main UI. It reads and changes FAS through Zairenkai-Core while
+Core answers, and runs `zfasd ctl --dir /data/adb/zairenkai/fas ...` through root itself only when
+Core is down and the user confirms (Zairenkai-App `integration-core/.../fas/Fas.kt`, 2026-10-22).
+The KernelSU WebUI now lives in Zairenkai-Modules. Every UI integrates only through the interfaces
+below, never runs arbitrary commands and never writes cpufreq nodes.
 
 ## Control socket
 

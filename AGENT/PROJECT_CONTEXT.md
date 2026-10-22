@@ -9,7 +9,7 @@
 |---|---|---|
 | Repository | `ZairenkaiPrjctX/Zairenkai-FAS` | Verified. Evidence: GitHub API |
 | GitHub description | Zairenkai Tweaks FAS kernel module | Verified. Evidence: GitHub API. Note: the implementation is a userspace root daemon in a Magisk/KernelSU module, not a kernel module (see `docs/CAPABILITIES.md`) |
-| Visibility | private | Verified. Evidence: GitHub API |
+| Visibility | public | Verified. Evidence: `list_repos`, 2026-10-22 (earlier entries said private) |
 | Default branch | `dev` | Verified. Evidence: `git remote show origin` 2026-10-19 |
 | Purpose | Frame-aware scheduling: bounded, thermal-aware CPU frequency floors driven by SurfaceFlinger frame telemetry | Verified. Evidence: `crates/`, `docs/ARCHITECTURE.md` |
 | Licence | Apache-2.0 (`LICENSE`, `NOTICE`, Cargo `license`, SPDX headers) | Verified. Evidence: maintainer decision 2026-10-21; `cargo metadata` reports Apache-2.0 for all crates; `docs/THIRD_PARTY.md` |
@@ -59,8 +59,10 @@
 
 ## Related repositories
 
-- `Zairenkai-App`: future UI. It contained only agent foundation files on 2026-10-19
-  (Evidence: `git ls-tree origin/dev`). The integration contract is `docs/INTEGRATION.md`.
+- `Zairenkai-App`: the Android UI. It reaches zfasd through Core, and runs `zfasd ctl` through
+  root only when Core is down and the user confirms. Verified. Evidence: App
+  `integration-core/src/main/kotlin/com/zairenkaiprjctx/integration/fas/Fas.kt`, 2026-10-22. The
+  integration contract is `docs/INTEGRATION.md`.
 - `Zairenkai-Database-Source` (AFID): thermal/power metadata that could later supply validated
   per-device thermal zone thresholds. **Unverified**: no integration exists.
 
